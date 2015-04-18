@@ -40,11 +40,10 @@ class tape(object):
 
 
 	def get_item(self):
-		if(self.index < 0):
-			return None
-		else:
+		try:
 			return self.myTape[self.index]
-
+		except:
+			return None
 
 	def set_item(self, x):
 		if(self.index < 0):
@@ -52,3 +51,4 @@ class tape(object):
 		else:
 			self.myTape[self.index] = x
 			return 0
+

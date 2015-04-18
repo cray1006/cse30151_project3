@@ -14,14 +14,30 @@ from tape import tape
 
 # Print output
 def printoutput(t, cs):
-	print '(',
+	sys.stdout.write('(')
 	
-	for i in range (0,t.index):
-		print t.myTape[i],
+	if t.index < len(t.myTape):
+		T = t.index
+	else:
+		T = len(t.myTape)
+
+	for i in range (0,T):
+		sys.stdout.write( t.myTape[i] )
+		
+		if i < (t.index - 1):
+			sys.stdout.write(",")
+
 	print ')' + str(cs) + '(',
-	for i in range (t.index + 1, len(t.myTape)):
-		print t.myTape[i] + ','
-	print ')'
+
+	for i in range (t.index, len(t.myTape)):
+		if t.index < len(t.myTape):	
+			sys.stdout.write( t.myTape[i] )
+		
+			if i < (len(t.myTape) - 1):
+				sys.stdout.write(",")
+
+	sys.stdout.write( ')\n' )
+	sys.stdout.flush()
 
 	return
 
@@ -34,6 +50,7 @@ def main(tape):
 	S = None
 	F = [None] * 2
 	transitions = 0
+	
 
 	args = sys.argv
 	if len(args) != 2:
@@ -70,7 +87,7 @@ def main(tape):
 		# Key = start state
 		# value[0] = current tape symbol 
 		# value[1] = resulting state
-		# value[2] = symbol written on tape
+		# value[2] = symbol to be written on tape
 		# value[3] = direction
 		elif line[0] == 'T':
 			if line[1] not in Q or line[3] not in Q:
@@ -103,9 +120,13 @@ def main(tape):
 			F[0] = line[1]
 			F[1] = line[2]
 
-
 	if ' ' not in Z:
 		Z.append(' ')
+
+	# Check if deterministic
+
+
+
 
 
 	# Number of lines user will input next
@@ -113,37 +134,81 @@ def main(tape):
 
 	# Process Tape Input
 	for i in range (0, nlines):
+		tape.__init__()
 		currentstate = S
 		l = raw_input()
 		line = l.split(',')
 		for i in line:	
 			tape.myTape.append(i)
+		
+		print '\n()',
+		sys.stdout.write( str(currentstate) + '(')
+		for i in range (tape.index, len(tape.myTape)):
+			sys.stdout.write( tape.myTape[i])
+			if i < (len(tape.myTape) - 1):
+				sys.stdout.write(',')
+		sys.stdout.write(')\n')
+		sys.stdout.flush()
+		
 
-
-		# INCOMPLETE / DOESNT WORK CORRECTLY YET
+		# Pretty Much works, need to do more testing to make sure 
+		j = 0
 		while j < len(T[currentstate]):
-			print T[currentstate][j]
-			if T[currentstate][j][0] == tape.get_item:
-				print T[currentstate][j][0]
-				transitions += 1
-				if T[currentstate][j][2] != ' ':
-					tape.set_item(T[currentstate][j][2])
-	
-					currentstate = T[currentstate][j][1]
 
+			if tape.index > len(line) - 1:	
+				if T[currentstate][j][0] == ' ':
+					try:
+						tape.set_item(T[currentstate][j][2])
+					except:
+						tape.myTape.append(T[currentstate][j][2])
+
+					transitions += 1
+				
 					if T[currentstate][j][3] == 'R':
 						tape.move_right()
 					else:
 						tape.move_left()
 
-					j = 0
-		
+					currentstate = T[currentstate][j][1]
 					printoutput(tape, currentstate)
+					j = 0
 
-					continue 
+								
+					if currentstate == F[0] or currentstate == F[1]:
+						break 
+		
+					continue
 
-				if transitions > 1000:
-					break
+			elif (tape.get_item()==None)or(T[currentstate][j][0] == tape.get_item()):
+				
+				transitions += 1
+				
+				if T[currentstate][j][2] != ' ':
+					tape.set_item(T[currentstate][j][2])
+				
+
+				if T[currentstate][j][3] == 'R':
+					tape.move_right()
+				else:
+					tape.move_left()
+
+					
+				currentstate = T[currentstate][j][1]
+				printoutput(tape, currentstate)
+				j = 0
+			
+				if currentstate == F[0]:
+					break 
+		
+				continue
+
+
+
+			if transitions > 1000:
+				break
+
+
+
 
 			j += 1
 
@@ -155,8 +220,11 @@ def main(tape):
 		elif currentstate == F[0]:
 			print "ACCEPT"
 		else:
+			tape.move_right()
+			printoutput(tape, F[1])
 			print "REJECT"
 		
+		print "\n"
 		
 	return
 
