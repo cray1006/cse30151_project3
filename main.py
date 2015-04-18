@@ -123,14 +123,18 @@ def main(tape):
 	if ' ' not in Z:
 		Z.append(' ')
 
-	# Check if deterministic
 
-
+	# Still need to check if deterministic
 
 
 
 	# Number of lines user will input next
-	nlines = input()
+	try:
+		nlines = raw_input()
+		nlines = int(nlines)
+	except ValueError:
+		print "Input needs to be an integer"
+		return
 
 	# Process Tape Input
 	for i in range (0, nlines):
