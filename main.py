@@ -9,16 +9,31 @@
 #main driver program for Turing machine simulator
 
 import sys, re
+from tape import tape
 
 
+# Print output
+def printoutput(t, cs):
+	print '(',
+	
+	for i in range (0,t.index):
+		print t.myTape[i],
+	print ')' + str(cs) + '(',
+	for i in range (t.index + 1, len(t.myTape)):
+		print t.myTape[i] + ','
+	print ')'
 
-def main():
+	return
+
+
+def main(tape):
 	Q = []
 	A = []
 	Z = []
 	T = {}
 	S = None
 	F = [None] * 2
+	transitions = 0
 
 	args = sys.argv
 	if len(args) != 2:
@@ -67,7 +82,11 @@ def main():
 			if line[5] != 'L' and line[5] != 'R':
 				print str(line[5]) + " direction is not valid."
 				return
-			T[line[1]] = [line[2],line[3],line[4], line[5]]
+			try:	
+				T[line[1]].append((line[2],line[3],line[4],line[5]))
+			except: 
+				T[line[1]] = []
+				T[line[1]].append((line[2],line[3],line[4],line[5]))
 
 		# Set Start State
 		elif line[0] == 'S':
@@ -88,14 +107,63 @@ def main():
 	if ' ' not in Z:
 		Z.append(' ')
 
+
+	# Number of lines user will input next
+	nlines = input()
+
+	# Process Tape Input
+	for i in range (0, nlines):
+		currentstate = S
+		l = raw_input()
+		line = l.split(',')
+		for i in line:	
+			tape.myTape.append(i)
+
+
+		# INCOMPLETE / DOESNT WORK CORRECTLY YET
+		while j < len(T[currentstate]):
+			print T[currentstate][j]
+			if T[currentstate][j][0] == tape.get_item:
+				print T[currentstate][j][0]
+				transitions += 1
+				if T[currentstate][j][2] != ' ':
+					tape.set_item(T[currentstate][j][2])
 	
-	
-	
+					currentstate = T[currentstate][j][1]
+
+					if T[currentstate][j][3] == 'R':
+						tape.move_right()
+					else:
+						tape.move_left()
+
+					j = 0
+		
+					printoutput(tape, currentstate)
+
+					continue 
+
+				if transitions > 1000:
+					break
+
+			j += 1
+
 				
+
+		if transitions > 1000:
+			print 'NOT HALT'
+
+		elif currentstate == F[0]:
+			print "ACCEPT"
+		else:
+			print "REJECT"
+		
+		
+	return
 
 		
 		
 
 
 if __name__ == '__main__':
-	main()
+	tape = tape()
+	main(tape)
