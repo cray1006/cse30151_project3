@@ -124,8 +124,13 @@ def main(tape):
 		Z.append(' ')
 
 
-	# Still need to check if deterministic
-
+	# Check if deterministic
+	for i in T.keys():
+		for j in range (0, len(T[i])-1):
+			for k in range (1, len(T[i]) - j):
+				if T[i][j][0] == T[i][j+k][0]:
+					print "Machine is not deterministic"
+					return
 
 
 	# Number of lines user will input next
@@ -142,8 +147,10 @@ def main(tape):
 		currentstate = S
 		l = raw_input()
 		line = l.split(',')
+		j = 0
 		for i in line:	
-			tape.myTape.append(i)
+			tape.myTape[j] = i
+			j += 1
 		
 		print '\n()',
 		sys.stdout.write( str(currentstate) + '(')
@@ -161,10 +168,7 @@ def main(tape):
 
 			if tape.index > len(line) - 1:	
 				if T[currentstate][j][0] == ' ':
-					try:
-						tape.set_item(T[currentstate][j][2])
-					except:
-						tape.myTape.append(T[currentstate][j][2])
+					tape.set_item(T[currentstate][j][2])
 
 					transitions += 1
 				

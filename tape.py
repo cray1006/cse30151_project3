@@ -10,7 +10,7 @@
 
 class tape(object):
 	def __init__(self):
-		self.myTape = []
+		self.myTape = {}
 		self.index = 0
 
 
@@ -19,7 +19,7 @@ class tape(object):
 
 
 	def reset_tape(self):
-		self.myTape = []
+		self.myTape = {}
 
 
 	def get_index(self):
@@ -32,11 +32,6 @@ class tape(object):
 
 	def move_left(self):
 		self.index = self.index - 1
-		
-		if(self.index < 0):
-			return -1
-		else:
-			return 0
 
 
 	def get_item(self):
@@ -46,9 +41,6 @@ class tape(object):
 			return None
 
 	def set_item(self, x):
-		if(self.index < 0):
-			return -1
-		else:
-			self.myTape[self.index] = x
-			return 0
+		self.myTape[self.index] = x
+		return 0
 
