@@ -22,6 +22,7 @@ def printoutput(t, cs):
 		T = len(t.myTape)
 
 	for i in range (0,T):
+
 		sys.stdout.write( t.myTape[i] )
 		
 		if i < (t.index - 1):
@@ -38,7 +39,6 @@ def printoutput(t, cs):
 				if i < (len(t.myTape) - 1):
 					sys.stdout.write(",")
 		
-
 	sys.stdout.write( ')\n' )
 	sys.stdout.flush()
 
@@ -46,12 +46,13 @@ def printoutput(t, cs):
 
 
 def main(tape):
-	Q = []
-	A = []
-	Z = []
-	T = {}
-	S = None
-	F = [None] * 2
+	# Data structures
+	Q = []		# States
+	A = []		# Alphabet
+	Z = []		# Tape alphabet
+	T = {}		# Transitions
+	S = None	# Start state
+	F = [None] * 2	# F[0] = Accept state, F[1] = Reject state
 	transitions = 0
 	
 
@@ -166,7 +167,7 @@ def main(tape):
 		sys.stdout.flush()
 		
 
-		# Pretty Much works, need to do more testing to make sure 
+		# Transitions
 		j = 0
 		while j < len(T[currentstate]):
 
@@ -226,6 +227,7 @@ def main(tape):
 
 				
 
+		# Check if in accept or reject states or if not halting
 		if transitions > 1000:
 			print 'NOT HALT'
 
