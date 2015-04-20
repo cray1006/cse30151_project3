@@ -38,7 +38,7 @@ class tape(object):
 		try:
 			return self.myTape[self.index]
 		except:
-			return None
+			return ' '
 
 	def set_item(self, x):
 		self.myTape[self.index] = x

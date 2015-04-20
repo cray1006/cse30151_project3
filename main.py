@@ -146,6 +146,7 @@ def main(tape):
 
 	# Process Tape Input
 	for i in range (0, nlines):
+		transitions = 0
 		tape.__init__()
 		currentstate = S
 		l = raw_input()
@@ -170,7 +171,7 @@ def main(tape):
 		while j < len(T[currentstate]):
 
 			if tape.index > len(line) - 1:	
-				if T[currentstate][j][0] == ' ':
+				if T[currentstate][j][0] == tape.get_item():
 					tape.set_item(T[currentstate][j][2])
 
 					transitions += 1
