@@ -1,4 +1,4 @@
-Q:q0,q1,q2,q3,q4,q5,q6,q7,q8,q9
+Q:q0,q1,q2,q4,q5,q6,q7,q8,q9
 A:a,b,c 
 Z:a,b,c, ,x
 T:q0,a,q1,a,R
@@ -11,8 +11,6 @@ T:q9,x,q9,x,L
 T:q9, ,q7, ,R
 T:q2,x,q2,x,L
 T:q2,a,q1,x,R
-T:q3,x,q3,x,R
-T:q3, ,q7, ,R
 T:q4,x,q4,x,L
 T:q4,a,q5,x,R
 T:q5,x,q5,x,R
