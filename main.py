@@ -30,11 +30,14 @@ def printoutput(t, cs):
 	print ')' + str(cs) + '(',
 
 	for i in range (t.index, len(t.myTape)):
-		if t.index < len(t.myTape):	
-			sys.stdout.write( t.myTape[i] )
+
+		if t.index < len(t.myTape):
+			if t.checkIndex(i):	
+				sys.stdout.write( t.myTape[i] )
+			
+				if i < (len(t.myTape) - 1):
+					sys.stdout.write(",")
 		
-			if i < (len(t.myTape) - 1):
-				sys.stdout.write(",")
 
 	sys.stdout.write( ')\n' )
 	sys.stdout.flush()

@@ -44,3 +44,10 @@ class tape(object):
 		self.myTape[self.index] = x
 		return 0
 
+
+	def checkIndex(self, x):
+		try:
+			l = self.myTape[x]
+			return 1
+		except:
+			return 0
