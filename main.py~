@@ -229,7 +229,7 @@ def main(tape):
 
 		# Check if in accept or reject states or if not halting
 		if transitions > 1000:
-			print 'DOES NOT HALT'
+			print 'NOT HALT'
 
 		elif currentstate == F[0]:
 			print "ACCEPT"
