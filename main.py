@@ -134,7 +134,7 @@ def main(tape):
 		Z.append(' ')
 
 	# Check if deterministic
-	for i in T.keys():
+	for i in T.keys():	#loop through each starting state for each transition and see if the same tape input sends you to more than 1 state
 		for j in range (0, len(T[i])-1):
 			for k in range (1, len(T[i]) - j):
 				if T[i][j][0] == T[i][j+k][0]:
@@ -142,7 +142,7 @@ def main(tape):
 					return
 
 
-	# Number of lines user will input next
+	# Getting number of lines user will input next
 	try:
 		nlines = raw_input()
 		nlines = int(nlines)
@@ -150,18 +150,19 @@ def main(tape):
 		print "Input needs to be an integer"
 		return
 
-	# Process Tape Input
-	for i in range (0, nlines):
-		transitions = 0
-		tape.__init__()
-		currentstate = S
-		l = raw_input()
-		line = l.split(',')
+	# Processing Tape Input
+	for i in range (0, nlines):	#going through the user inputs
+		transitions = 0	#initializing number of transitions to 0
+		tape.__init__()	#initializing tape
+		currentstate = S	#setting current state
+		l = raw_input()	#getting tape input
+		line = l.split(',')	#tokenizing tape input
 		j = 0
-		for i in line:	
+		for i in line:	#filling tape with the user's input	
 			tape.myTape[j] = i
 			j += 1
 		
+		#displaying initial state of the simulator
 		print '\n()',
 		sys.stdout.write( str(currentstate) + '(')
 		for i in range (tape.index, len(tape.myTape)):
@@ -171,38 +172,34 @@ def main(tape):
 		sys.stdout.write(')\n')
 		sys.stdout.flush()
 		
-
-		# Transitions
+		# Going through the transitions
 		j = 0
-		while j < len(T[currentstate]):
+		while j < len(T[currentstate]):	#go through the transitions for the current state
+			if tape.index > len(line) - 1:	#at the end of the input
+				if T[currentstate][j][0] == tape.get_item():	#checking if current tape input matches that of the transition
+					tape.set_item(T[currentstate][j][2])	#writing to the current tape position
 
-			if tape.index > len(line) - 1:	
-				if T[currentstate][j][0] == tape.get_item():
-					tape.set_item(T[currentstate][j][2])
-
-					transitions += 1
+					transitions += 1	#incrementing the number of transitions
 				
-					if T[currentstate][j][3] == 'R':
+					if T[currentstate][j][3] == 'R':	#moving the tape head
 						tape.move_right()
 					else:
 						tape.move_left()
 
-					currentstate = T[currentstate][j][1]
-					printoutput(tape, currentstate)
-					j = 0
+					currentstate = T[currentstate][j][1]	#updating the current state
+					printoutput(tape, currentstate)	#printing output
+					j = 0	#reset j since we are now working with a new current state
+			
+					if ((currentstate == F[0]) or (currentstate == F[1])):
+						break	#break out of the loop if we have reached an appect or reject state
 
-								
-					if currentstate == F[0] or currentstate == F[1]:
-						break 
-		
 					continue
-
-			elif (tape.get_item()==None)or(T[currentstate][j][0] == tape.get_item()):
+			elif (tape.get_item()== ' ')or(T[currentstate][j][0] == tape.get_item()):	#still going through the input
 				
 				transitions += 1
 				
-				if T[currentstate][j][2] != ' ':
-					tape.set_item(T[currentstate][j][2])
+				#if T[currentstate][j][2] != ' ':
+				tape.set_item(T[currentstate][j][2])
 				
 
 				if T[currentstate][j][3] == 'R':
@@ -215,27 +212,20 @@ def main(tape):
 				printoutput(tape, currentstate)
 				j = 0
 			
-				if currentstate == F[0]:
+				#if currentstate == F[0]:
+				if ((currentstate == F[0]) or (currentstate == F[1])):	
 					break 
 		
 				continue
 
-
-
-			if transitions > 1000:
+			if transitions > 1000:	#break out of the loop if the number of transitions reaches this limit
 				break
-
-
-
 
 			j += 1
 
-				
-
 		# Check if in accept or reject states or if not halting
 		if transitions > 1000:
-			print 'DOES NOT HALT'
-
+			print 'DID NOT HALT'
 		elif currentstate == F[0]:
 			print "ACCEPT"
 		else:
@@ -245,7 +235,7 @@ def main(tape):
 		
 		print "\n"
 	
-	f.close()		
+	f.close()	#closing input file		
 	return
 
 		
