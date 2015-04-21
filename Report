@@ -1,0 +1,41 @@
+Christopher Ray
+Dinh Do
+
+
+Designed Turing Machines:
+
+Arithmetic Operator: Subtraction (subtraction.txt)
+This turing machine basically followed the format of L = {a^i b^j c^k | i-j=k  &  i > 0}.
+
+Inputs:
+(Accept)
+a,a,b,b
+a,a,a,b,c,c
+a,c
+a,a,b,c
+
+(Reject)
+a,b,c
+a,a,b,b,c
+a,b,b,c
+a,a,a,b,c
+
+
+
+Arithmetic Operator: Division with Remainder (divisionwr.txt)
+This turing machine description is as follows L = {a^i b^j c^k d^l | i/j = k with remainder l  &  i,j > 0}
+								or  i = j*k + l
+
+Inputs:
+(Accept)
+a,a,b,b,c
+a,a,a,b,b,c,d
+a,a,a,a,b,b,c,c
+a,a,a,a,a,b,b,b,c,d,d
+
+(Reject)
+a,b,c,d
+a,b,c,c
+a,b,b
+a,a,b,b,c,d
+
