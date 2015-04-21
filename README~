@@ -1,0 +1,35 @@
+Christopher Ray and Dinh Do
+Professor Blanton
+CSE 30151
+20 April 2015
+
+Project 3 README
+
+Files that should be included with this submission:
+	main.py (main driver program)
+	tape.py (tape class definition)
+	subtraction.txt	(description of TM that recognizes L = {a^i b^j c^k | i-j=k  &  i > 0} )
+	sub_input.txt (contains tape inputs for subtraction.txt)
+	sub_output.txt (contains output from subtraction.txt using sub_input.txt)
+	palindrome.txt (description of TM that recognizes binary palindromes)
+	palindrome_input.txt (contains tape inputs for palindrome.txt)
+	palindrome_output.txt (contains output from palindrome.txt using palindrome_input.txt)
+	
+	project3_report.pdf (Project 3 Report)
+	README (file describing contents of submission and how to execute the program)
+
+Our submission for Project 3 is invoked using the following command:
+
+	./tm [input file]
+
+After using the above command, users will first have to input an integer indicating the number of tape arguments to be processed.  Once that is done, users can then input their arguments and the simulator will display the results.
+
+Users can alternatively use the following command if they choose to use a text file containing their desired tape inputs:
+
+	./tm [input file] < [file containing tape input information]
+
+Note that you can always redirect the simulator's output using the '>' character.
+
+
+
+
