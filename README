@@ -17,6 +17,11 @@ Files that should be included with this submission:
 	divisionwr.txt (description of TM that recognizes L = {a^i b^j c^k d^l | i/j = k with remainder l (or i = j*k + l)  &  i,j > 0} )
 	division_input.txt (contains tape inputs for divisionwr.txt)
 	division_output.txt (contains output from divisionwr.txt using division_input.txt)
+	tm1.txt (TM description given in project document, used to test simulator functionality)
+	tm1-input.txt (input for tm1.txt)
+	tm2.txt (TM description given on project website, used to test simulator functionality)
+	tm2-input.txt (input for tm2.txt)
+	tm2-input2.txt (input for tm2.txt, used to test if simulator catches machines that do not halt)
 	project3_report.pdf (Project 3 Report)
 	README (file describing contents of submission and how to execute the program)
 

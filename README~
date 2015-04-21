@@ -14,7 +14,9 @@ Files that should be included with this submission:
 	palindrome.txt (description of TM that recognizes binary palindromes)
 	palindrome_input.txt (contains tape inputs for palindrome.txt)
 	palindrome_output.txt (contains output from palindrome.txt using palindrome_input.txt)
-	
+	divisionwr.txt (description of TM that recognizes L = {a^i b^j c^k d^l | i/j = k with remainder l (or i = j*k + l)  &  i,j > 0} )
+	division_input.txt (contains tape inputs for divisionwr.txt)
+	division_output.txt (contains output from divisionwr.txt using division_input.txt)
 	project3_report.pdf (Project 3 Report)
 	README (file describing contents of submission and how to execute the program)
 
