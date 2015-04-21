@@ -235,7 +235,7 @@ def main(tape):
 		
 		print "\n"
 	
-	f.close()		
+	f.close()	#closing input file		
 	return
 
 		

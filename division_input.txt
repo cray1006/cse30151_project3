@@ -1,0 +1,9 @@
+8
+a,a,b,b,c
+a,a,a,b,b,c,d
+a,a,a,a,b,b,c,c
+a,a,a,a,a,b,b,b,c,d,d
+a,b,c,d
+a,b,c,c
+a,b,b
+a,a,b,b,c,d

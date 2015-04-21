@@ -200,13 +200,11 @@ def main(tape):
 				
 				#if T[currentstate][j][2] != ' ':
 				tape.set_item(T[currentstate][j][2])
-				
 
 				if T[currentstate][j][3] == 'R':
 					tape.move_right()
 				else:
 					tape.move_left()
-
 					
 				currentstate = T[currentstate][j][1]
 				printoutput(tape, currentstate)
