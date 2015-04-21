@@ -1,6 +1,21 @@
 Christopher Ray
 Dinh Do
 
+Project Report
+
+
+[Language and Platform]
+The project was written in python. It was tested and developed on the student machines. 
+
+
+[Program Description]
+The program consists of two files: main.py and tape.py. 
+
+Tape.py contains the tape class that is passed into the main function. The tape class holds the "infinite" tape that can be traversed in either direction. The tape is stored in a dictionary structure. The tape class also has general functions to navigate, write to and read from the tape. 
+
+Main.py has all of the data structures to hold the states, alphabets and transitions in its main function. States and alphabets are stored in lists. Transitions are stored in a dictionary. The main function proceeds by first reading from the input file and parsing the lines. The data is then put into the correct corresponding storage structure based on the first character of the line (i.e. Q, A, Z, T, S, F). Checks are done after the structures are filled to make sure the machine is deterministic and that the states / alphabet letters are valid in the machine. The program then waits for the user to input an integer stating how many lines of input will follow. The program then waits for and parses user input lines and proceeds to transition through the machine. If there are more than 1000 transitions, the machine will halt and print NOT HALT. Otherwise, if there it has looped through all possible transitions and it ends on a state that is not an accept state, it is transferred to the reject state and REJECT is printed. If it lands on an accept state, ACCEPT is printed.
+
+
 
 Designed Turing Machines:
 
@@ -23,8 +38,7 @@ a,a,a,b,c
 
 
 Arithmetic Operator: Division with Remainder (divisionwr.txt)
-This turing machine description is as follows L = {a^i b^j c^k d^l | i/j = k with remainder l  &  i,j > 0}
-								or  i = j*k + l
+This turing machine description is as follows L = {a^i b^j c^k d^l | i/j = k with remainder l (or i = j*k + l)  &  i,j > 0}
 
 Inputs:
 (Accept)
