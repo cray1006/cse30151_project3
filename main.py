@@ -11,26 +11,25 @@
 import sys, re
 from tape import tape
 
-
-# Print output
+# Print output function
 def printoutput(t, cs):
 	sys.stdout.write('(')
 	
-	if t.index < len(t.myTape):
+	if t.index < len(t.myTape):	#determining where the tape head is
 		T = t.index
 	else:
 		T = len(t.myTape)
 
-	for i in range (0,T):
+	for i in range (0,T):	#printing out tape contents up to where the tape head is
 
 		sys.stdout.write( t.myTape[i] )
 		
 		if i < (t.index - 1):
 			sys.stdout.write(",")
 
-	print ')' + str(cs) + '(',
+	print ')' + str(cs) + '(',	#displaying current state
 
-	for i in range (t.index, len(t.myTape)):
+	for i in range (t.index, len(t.myTape)):	#printing the rest of the tape input
 
 		if t.index < len(t.myTape):
 			if t.checkIndex(i):	
@@ -45,7 +44,8 @@ def printoutput(t, cs):
 	return
 
 
-def main(tape):
+#main function
+def main(tape):	
 	# Data structures
 	Q = []		# States
 	A = []		# Alphabet
@@ -53,27 +53,32 @@ def main(tape):
 	T = {}		# Transitions
 	S = None	# Start state
 	F = [None] * 2	# F[0] = Accept state, F[1] = Reject state
-	transitions = 0
+	transitions = 0	#recordinng the number of transitions to determine if machine halts
 	
 
 	args = sys.argv
-	if len(args) != 2:
+	if len(args) != 2:	#making sure there is an input file
 		print "Must pass in file with machine description."
 		return
 	
-	f = open(args[1], 'r')
+	try:
+		f = open(args[1], 'r')	#attempting to open input file
+	except:
+		print "Error opening file"	#end program if there was an error opening the input file
+		return 
 	
-	for line in f:
+	for line in f:	#parse through the input file and build the TM
 		i = 1
-		r = '[,:\n]'
+		r = '[,:\n]'	#tokenize the line
 		line = re.split(r, line)
 
-		# Fill States
+		# Fill States Array
 		if line[0] == 'Q':
 			while i < len(line) - 1:
 				Q.append(line[i])
 				i+=1	
-		# Fill Alphabet			
+
+		# Fill Alphabet	Array		
 		elif line[0] == 'A':
 			while i < len(line) - 1:
 				if line[i] == ' ':
@@ -81,38 +86,39 @@ def main(tape):
 					return
 				A.append(line[i])
 				i+=1
-		# Fill Tape Alphabet	
+
+		# Fill Tape Alphabet Array	
 		elif line[0] == 'Z':
 			while i < len(line) - 1: 
 				Z.append(line[i])
 				i+=1
 	
-		# Fill Transitions in dictionary
+		# Fill Transitions dictionary
 		# Key = start state
 		# value[0] = current tape symbol 
 		# value[1] = resulting state
 		# value[2] = symbol to be written on tape
 		# value[3] = direction
 		elif line[0] == 'T':
-			if line[1] not in Q or line[3] not in Q:
+			if line[1] not in Q or line[3] not in Q:	#check for invalid states
 				print "State in transition is not a valid state in machine."
 				return
-			if line[2] not in Z or line[4]not in Z:
+			if line[2] not in Z or line[4]not in Z:	#check for invalid characters
 				print "Tape symbol is not valid in this machine."
 				return
-			if line[5] != 'L' and line[5] != 'R':
+			if line[5] != 'L' and line[5] != 'R':	#check for invalid directions
 				print str(line[5]) + " direction is not valid."
 				return
 			try:	
-				T[line[1]].append((line[2],line[3],line[4],line[5]))
+				T[line[1]].append((line[2],line[3],line[4],line[5]))	#add another transition to a state already in the dictionary
 			except: 
-				T[line[1]] = []
+				T[line[1]] = []	#add a completely new transition to the dictionary
 				T[line[1]].append((line[2],line[3],line[4],line[5]))
 
 		# Set Start State
 		elif line[0] == 'S':
 			if line[1] not in Q:
-				print str(line[1]) + " start state is not a valid state in machine."
+				print str(line[1]) + " is not a valid state in machine."
 				return
 			S = line[1]
 		
@@ -124,9 +130,8 @@ def main(tape):
 			F[0] = line[1]
 			F[1] = line[2]
 
-	if ' ' not in Z:
+	if ' ' not in Z:	#adding blank input to tape input alphabet
 		Z.append(' ')
-
 
 	# Check if deterministic
 	for i in T.keys():
@@ -239,13 +244,11 @@ def main(tape):
 			print "REJECT"
 		
 		print "\n"
-		
+	
+	f.close()		
 	return
 
 		
-		
-
-
 if __name__ == '__main__':
 	tape = tape()
 	main(tape)
