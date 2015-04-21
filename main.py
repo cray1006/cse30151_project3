@@ -190,21 +190,23 @@ def main(tape):
 					printoutput(tape, currentstate)	#printing output
 					j = 0	#reset j since we are now working with a new current state
 			
-					if ((currentstate == F[0]) or (currentstate == F[1])):
-						break	#break out of the loop if we have reached an appect or reject state
+					if ((currentstate == F[0]) or (currentstate == F[1])):	
+						break 
 
 					continue
-			elif (tape.get_item()== ' ')or(T[currentstate][j][0] == tape.get_item()):	#still going through the input
+			elif (tape.get_item()==None)or(T[currentstate][j][0] == tape.get_item()):#still going through the input
 				
 				transitions += 1
 				
 				#if T[currentstate][j][2] != ' ':
 				tape.set_item(T[currentstate][j][2])
+				
 
 				if T[currentstate][j][3] == 'R':
 					tape.move_right()
 				else:
 					tape.move_left()
+
 					
 				currentstate = T[currentstate][j][1]
 				printoutput(tape, currentstate)
@@ -216,14 +218,14 @@ def main(tape):
 		
 				continue
 
-			if transitions > 1000:	#break out of the loop if the number of transitions reaches this limit
+			if transitions > 1000:	#stop the simulation if this limit is reached
 				break
 
 			j += 1
 
 		# Check if in accept or reject states or if not halting
 		if transitions > 1000:
-			print 'DID NOT HALT'
+			print 'DOES NOT HALT'
 		elif currentstate == F[0]:
 			print "ACCEPT"
 		else:
@@ -233,7 +235,7 @@ def main(tape):
 		
 		print "\n"
 	
-	f.close()	#closing input file		
+	f.close()	#closing input file	
 	return
 
 		
